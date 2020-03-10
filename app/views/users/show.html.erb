@@ -1,0 +1,93 @@
+<div class="leftpanel">
+    <% if @user.image.attached? %>
+    <div class="avatarbox"><%= image_tag @user.image.variant(resize: "150x150") %></div>
+    <% else %>
+    <div> No avatar </div>
+    <% end %>
+    <div class="dataprofil">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Username: <%= @user.username %></li>
+  
+        <li class="list-group-item">Email: <%= @user.email %></li>
+ 
+        <li class="list-group-item"><%= link_to 'Edit profil', edit_user_registration_path(@user) %></li>
+      </ul>
+    
+    </div>
+
+</div>
+
+<div class="mainpostpanel">
+<div class="newpostaction">
+  
+  <%= link_to 'New Post', new_post_path, class:"btn btn-warning", style: "float: right;" %></div>  
+      
+<% @posts.each do |post| %>
+        <div class="blog-card">
+            <div class="meta">
+            <% if post.postimage.attached? %>
+              <div class="photo" style="background-image: url(<%= url_for(post.postimage) %>)">
+              </div>
+              <% else %>
+              <div class="photo" style="background-image: url()"></div>
+              <% end %>
+              <ul class="details">
+                <li class="author"><%= post.user.username %></li>
+                <li class="email"><%= post.user.email%></li>
+                <li class="date">Feb. 14, 2020</li>
+                <li class="tags">
+                  <ul>
+                    <li><a href="#">Learn</a></li>
+                    <li><a href="#">Code</a></li>
+                    <li><a href="#">HTML</a></li>
+                    <li><a href="#">CSS</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="description">
+              <h1><%= link_to post.title, post_path(post) %></h1>
+              <h2><%= post.secondtitle %></h2>
+              <p><%= truncate(strip_tags(post.content.to_s), length: 100) %></p>
+              <table class="actionspost">
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="read-more">
+                        <%= link_to 'Show', post %>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="read-more">
+                        <%= link_to 'Edit', edit_post_path(post) %>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="read-more">
+                        <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?' } %>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>  
+              </table>
+            </div>
+          </div>
+        <% end %>
+        <div class="bottompanel">
+            <h1>Photo Gallery</h1>
+            <div class="photo_gallery">
+              <% @photos.each do |photo| %>
+                <div class="photo_container">
+                  <%= link_to image_tag(photo.image_url, class: "photo_user"), photo %>
+                  <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+                </div>
+              <% end %>
+          </div>
+        </div>
+        
+  
+        <div class="alert-panel">
+          <p id="notice" class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+        </div>
+  </div>

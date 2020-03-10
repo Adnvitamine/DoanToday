@@ -1,0 +1,30 @@
+<div class="leftpanel">
+    <% if user_signed_in? %>
+        <% if current_user.image.attached? %>
+        <div class="avatarbox"><%= image_tag current_user.image.variant(resize: "150x150") %></div>
+        <% else %>
+        <div> No avatar </div>
+        <% end %>
+        <div class="dataprofil">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Username: <%= current_user.username %></li>
+    
+            <li class="list-group-item">Email: <%= current_user.email %></li>
+    
+            <li class="list-group-item"><%= link_to 'Edit profil', edit_user_registration_path(@user) %></li>
+        </ul>
+    <% end %>    
+</div>
+</div><div class="mainpostpanel">
+<div class="newpost">
+<h1>Editing Post</h1>
+
+<%= render 'form', post: @post %>
+<button type="button" class="btn btn-warning">
+<%= link_to 'Show', @post %>
+</button>
+<button type="button" class="btn btn-danger">
+<%= link_to 'Back', posts_path %>
+</button>
+</div>
+</div>

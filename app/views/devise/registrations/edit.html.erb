@@ -1,0 +1,135 @@
+<div class="leftpanel">
+    <% if user_signed_in? %>
+        <% if current_user.image.attached? %>
+        <div class="avatar"><%= image_tag current_user.image.variant(resize: "150x150") %></div>
+        <% else %>
+        <div> No avatar </div>
+        <% end %>
+        <div class="dataprofil">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Username: <%= current_user.username %></li>
+    
+            <li class="list-group-item">Email: <%= current_user.email %></li>
+    
+            <li class="list-group-item"><%= link_to 'Edit profil', edit_user_registration_path(@user) %></li>
+        </ul>
+    <% end %>    
+</div>
+</div>
+<div class="mainpostpanel">
+<div class="editregistrationpanel">
+
+
+<div class="card-body">
+            <div class="field">
+                <% if resource.image.attached? %>
+                  <%= image_tag resource.image.variant(resize: "150x150") %>
+                <% end %>
+              </div>
+
+            
+
+				<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+           
+
+
+              <div class="custom-file">
+                  <%= f.file_field :image, class: "custom-file-input"%>
+                  <label class="custom-file-label" for="post_<%= :image %>">Choose file</label>
+              </div>
+              <script>
+            // Add the following code if you want the name of the file appear on select
+            $(".custom-file-input").on("change", function() {
+              var fileName = $(this).val().split("\\").pop();
+              $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+            </script>
+
+
+						<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fas fa-user">
+								</i>
+							</span>
+						</div>
+							<%= f.text_field :username, autofocus: true, autocomplete: "username", placeholder: "Username", class: "form-control" %>
+						</div>
+						
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text">
+									<i class="fas fa-user">
+									</i>
+								</span>
+							</div>
+						<%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "User@mail.com", class: "form-control" %>
+						</div>
+
+                        
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+            <% end %>
+					
+          <p>(Leave blank if you don't want to change it)</p>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fas fa-key">
+								</i>
+							</span>
+						</div>
+              
+							<% if @minimum_password_length %>
+							<%= f.password_field :password, autocomplete: "New-password", placeholder: "New password (" + @minimum_password_length.to_s + " chars min) ", class: "form-control" %>
+							<% end %>
+							<br />
+					</div>
+
+
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i class="fas fa-key">
+								</i>
+							</span>
+						</div>
+							<%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Confirm password", class: "form-control" %>
+					</div>
+
+            <p>(We need your current password to confirm your changes)</p>
+          	<div class="input-group form-group">
+						  <div class="input-group-prepend">
+							  <span class="input-group-text">
+								<i class="fas fa-key">
+								</i>
+							  </span>
+						  </div>
+              
+							<%= f.password_field :current_password, autocomplete: "current-password", placeholder: "Current password", class: "form-control" %>
+					  </div>
+						
+					<div class="form-group">
+							<%= f.submit "Update", class: "btn float-right login_btn" %>
+					</div>
+
+				<% end %>
+</div>
+<div class="card-footer-panel" style="margin-top: 25px;">
+            <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+            <%= link_to "Back", :back %>
+</div>
+              
+
+
+
+
+
+
+
+
+
+

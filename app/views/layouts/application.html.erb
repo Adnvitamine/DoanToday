@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DoanToday</title>
+    <%= csrf_meta_tags %>
+    
+
+    
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+      <%= render partial: 'layouts/navigation' %>
+      <div class="parent">
+        
+        <%= yield %>
+
+     
+    </div>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<div class="leftpanel">
+    <% if user_signed_in? %>
+        <% if current_user.image.attached? %>
+        <div class="avatarbox"><%= image_tag current_user.image.variant(resize: "150x150") %></div>
+        <% else %>
+        <div> No avatar </div>
+        <% end %>
+        <div class="dataprofil">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">Username: <%= current_user.username %></li>
+    
+            <li class="list-group-item">Email: <%= current_user.email %></li>
+    
+            <li class="list-group-item"><%= link_to 'Edit profil', edit_user_registration_path(@user) %></li>
+        </ul> 
+      </div>
+      <% end %>
+</div>
+
+
+<div class="mainpostpanel">   
+    
+    <div class="mainpostpanelarticle">
+      
+      <div class="articletitle">
+          <h1><%= @post.title %></h1>
+          <p><%= @post.secondtitle %></p>
+      </div>
+      
+      <div class="articleimage">
+          <% if @post.postimage.attached? %>
+          <%= image_tag @post.postimage.variant(resize: "150x150"), class: "avatar" %>
+          <% end %>
+      </div>
+
+      <div class="articlecontent">
+          <p>
+            <%= @post.content %>
+          </p>
+      </div>
+
+      <div class="articleinfo">
+      <p></p>
+      <p><%= image_tag @post.user.image.variant(resize: "50x50") %><br><strong>written by:</strong><%= @post.user.username %>
+      </p>
+      <p></p>
+      <p><strong>Email:</strong><%= @post.user.email %></p>
+      </div>
+      
+      <div class="articleactions">
+        
+          <% if user_signed_in? %>
+            
+            <% if current_user.id == @post.user.id %>
+              
+              <p><%= link_to 'Edit', edit_post_path(@post) %> - <%= link_to 'New Post', new_post_path %> - <%= link_to 'Back', user_path(current_user) %></p>
+            
+            <% else %>
+            
+            <p><%= link_to 'Back', user_path(current_user) %></p> 
+            
+            <% end %>
+          
+          <% else %>
+          
+              <p><%= link_to 'Log in to post', new_user_session_path %></p>
+          
+          <% end %>
+
+      </div>
+    
+    </div>
+
+    <div class="mainpostpanelcomments">
+      <h2><strong><%= @post.comments.count %> 
+                      <% if @post.comments.count > 1 %>
+                          Comments
+                      <% else %> 
+                            Comment 
+                      <% end %>      
+          </strong></h2>
+
+        <% @comments.each do |comment| %>
+          <div class="allcomment">
+          <%= image_tag comment.user.image.variant(resize: "50x50") %>
+            <p> <strong><%= comment.name %></strong><br><%= comment.body %></p>
+            <% if user_signed_in? %>
+              <% if current_user.id == comment.user.id %>
+                <%= link_to 'Delete', comment_path(comment), class: "btn btn-danger",method: :delete, data: { confirm: 'Are you sure?' } %>
+                  <% else %>            
+                  <% end %>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="newcomment">
+        <% if user_signed_in? %>
+        <%= render partial: 'comments/form', locals: { comment: @comment } %>
+        <% else %>
+        <%= link_to 'Log in to comment', new_user_session_path, class: "btn btn-warning" %>
+        <% end %>
+        </div>
+    </div>
+
+
+</div> 
+
+

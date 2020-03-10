@@ -1,0 +1,53 @@
+<div class="mainpanel">
+<div class="home_newpostaction">
+    <% if user_signed_in? %>
+    <%= link_to 'New Post', new_post_path, class:"btn btn-warning", style: "float: right;" %> 
+    <% else %>
+    <%= link_to 'Log in to post', new_user_session_path, class:"btn btn-warning", style: "float: right;" %>
+    <% end %>
+  </div>
+  <% @posts.each do |post| %>
+  <div class="blog-card">
+    <div class="meta"> 
+      <% if post.postimage.attached? %>
+      <div class="photo" style="background-image: url(<%= url_for(post.postimage) %>)">
+      </div>
+      <% else %>
+      <div class="photo" style="background-image: url()"></div>
+      <% end %>
+      <ul class="details">
+        <li class="author"><%= post.user.username %></li>
+        <li class="email"><%= post.user.email%></li>
+        <li class="date">July. 15, 2015</li>
+        <li class="tags">
+          <ul>
+            <li><a href="#">Learn</a></li>
+            <li><a href="#">Code</a></li>
+            <li><a href="#">JavaScript</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="description">
+      <h1><%= link_to post.title, post_path(post) %></h1>
+      <h2><%= post.secondtitle %></h2>
+      <p><%= post.content %></p>
+      
+      <table class="actionspost">
+        <tbody>
+          <tr>
+            <td>
+              <div class="read-more">
+                <%= link_to 'read more', post_path(post) %>
+              </div>
+            </td>
+          </tr>
+        </tbody>  
+      </table>
+
+
+    </div>
+  </div>
+  <% end %>
+</div>
+</div>
