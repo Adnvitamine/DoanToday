@@ -15,6 +15,7 @@
     <%= form.label :title %>
     <%= form.text_field :title, class: 'form-control' %>
   </div>
+
   <div class="form-group">
     <%= form.label "subtitle" %>
     <%= form.text_field :secondtitle, class: 'form-control' %>
@@ -27,7 +28,8 @@
      <div class="custom-file">
        <%= form.file_field :postimage, class: "custom-file-input"%>
       <label class="custom-file-label" for="post_<%= :postimage %>">Choose file</label>
-  </div>
+    </div>
+
   <script>
 // Add the following code if you want the name of the file appear on select
 $(".custom-file-input").on("change", function() {
@@ -36,60 +38,14 @@ $(".custom-file-input").on("change", function() {
 });
 </script>
 
-<script>
-
-  
-  function uploadAttachment(attachment) {
-    // Create our form data to submit
-    var file = attachment.file;
-    var form = new FormData;
-    form.append("Content-Type", file.type);
-    form.append("photo[image]", file);
-  
-    // Create our XHR request
-    var xhr = new XMLHttpRequest;
-    xhr.open("POST", "/photos.json", true);
-    xhr.setRequestHeader("X-CSRF-Token", Rails.csrfToken());
-  
-    // Report file uploads back to Trix
-    xhr.upload.onprogress = function(event) {
-      var progress = event.loaded / event.total * 100;
-      attachment.setUploadProgress(progress);
-    }
-  
-    // Tell Trix what url and href to use on successful upload
-    xhr.onload = function() {
-      if (xhr.status === 201) {
-        var data = JSON.parse(xhr.responseText);
-        return attachment.setAttributes({
-          url: data.image_url,
-          href: data.url
-        })
-      }
-    }
-  
-    return xhr.send(form);
-  }
-  
-  // Listen for the Trix attachment event to trigger upload
-  document.addEventListener("trix-attachment-add", function(event) {
-    var attachment = event.attachment;
-    if (attachment.file) {
-      return uploadAttachment(attachment);
-    }
-  });
-
-</script>
-
   <div class="field">
     <%= form.label :content %>
     <%= form.text_area :content, id: :post_content %>
     <trix-editor input="post_content"></trix editor>
   </div>
  
-  <br>
   <div class="actions">
     <%= form.submit class: "btn btn-primary" %>
   </div>
-  <br>
+
 <% end %>
