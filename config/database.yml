@@ -27,7 +27,7 @@ test:
 
 production:
   <<: *default
-  database: <%= ENV['DATABASE_URL'] %>
-  # username: uocgnefnwzzoto
-  # port: 5432
-  # password: 40b9e02a225e62f8383fd62a08195002ea32fe4a456583204ae75aaf71765eeb
+  adapter: postgresql
+  database: doantoday_production
+  username: 
+  password:  <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
