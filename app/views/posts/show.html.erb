@@ -28,12 +28,13 @@
       </div>
       
       <div class="articleimage">
-          <% if @post.postimage.attached? %>
-          <%= image_tag @post.postimage.variant(resize: "150x150"), class: "avatar" %>
-          <% end %>
+          
       </div>
 
       <div class="articlecontent">
+          <% if @post.postimage.attached? %>
+          <%= image_tag @post.postimage.variant(resize: "150x150"), class: "avatar" %>
+          <% end %>
           <p>
             <%= @post.content %>
           </p>

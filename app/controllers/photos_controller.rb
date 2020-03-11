@@ -3,8 +3,10 @@ class PhotosController < ApplicationController
 
   # GET /photos
   # GET /photos.json
+  PHOTOS_PER_PAGE = 3
   def index
-    @photos = Photo.all
+    @page = params.fetch(:page,0).to_i
+    @photos = Photo.offset(@page * PHOTOS_PER_PAGE).limit(PHOTOS_PER_PAGE)
   end
 
   # GET /photos/1
