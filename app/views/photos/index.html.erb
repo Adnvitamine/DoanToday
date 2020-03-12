@@ -14,10 +14,8 @@
                 </div>
               <% end %>
           </div>
-          <div class="pagespanel">
-          <p><%= link_to "Previous Page", photos_path(page: @page - 1) %>
-          | <%= link_to "Next Page", photos_path(page: @page + 1) %></p>
-          </div>
+          <div class="post_pagination">
+  <%== pagy_bootstrap_combo_nav_js(@pagyphotos) %>
+  </div>
     <%= link_to 'New Photo', new_photo_path %>
-
 </div>

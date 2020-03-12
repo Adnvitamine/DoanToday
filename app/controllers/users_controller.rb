@@ -5,8 +5,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @posts = @user.posts
-    @photos = @user.photos
+    @pagyposts, @posts = pagy(@user.posts.order("created_at DESC"), page_param: :page_posts, items: 5, params: { active_tab: 'stars' })
+    @pagyphotos, @photos =pagy(@user.photos.order("created_at DESC"), page_param: :page_photos, items: 5, params: { active_tab: 'stars' })
   end
 
   def edit

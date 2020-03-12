@@ -73,6 +73,9 @@
             </div>
           </div>
         <% end %>
+        <div class="post_pagination">
+  <%== pagy_bootstrap_combo_nav_js(@pagyposts) %>
+  </div>
         <div class="bottompanel">
             <h1>Photo Gallery</h1>
             <div class="photo_gallery">
@@ -83,6 +86,9 @@
                 </div>
               <% end %>
           </div>
+          <div class="post_pagination">
+  <%== pagy_bootstrap_combo_nav_js(@pagyphotos) %>
+  </div>
         </div>
         
   

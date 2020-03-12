@@ -3,10 +3,11 @@ class PhotosController < ApplicationController
 
   # GET /photos
   # GET /photos.json
-  PHOTOS_PER_PAGE = 3
+  # PHOTOS_PER_PAGE = 3 (NO GEM PAGINATION METHOD)
+  # @page = params.fetch(:page,0).to_i
+  # @photos = Photo.offset(@page * PHOTOS_PER_PAGE).limit(PHOTOS_PER_PAGE)
   def index
-    @page = params.fetch(:page,0).to_i
-    @photos = Photo.offset(@page * PHOTOS_PER_PAGE).limit(PHOTOS_PER_PAGE)
+    @pagyphotos, @photos = pagy(Photo.all.order("created_at DESC"), items: 5)
   end
 
   # GET /photos/1
