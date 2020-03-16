@@ -1,0 +1,72 @@
+.user-panel{
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    flex-direction: column;
+    min-width: 170px;
+    width: 20%;
+    min-height: 100vh;
+}
+
+
+.user-photo{
+    shape-outside: circle(50%);
+    height: 200px;
+    width: 200px;
+    margin-top: 30px;
+    margin-right: 15px;
+    object-fit: cover;
+    border-radius: 50%;
+    text-align: center;
+    
+}
+
+.user-photos-panel{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-width: 177px;
+    width: 80%;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 10px;
+}
+
+.user-actions{
+    margin-top: 10px;
+    .btn{
+        font-size: 15px;
+    }
+}
+
+.users-main-panel{
+    display: flex;
+    background-color: rgba(0,0,0,0.4);
+    flex-direction: column;
+    min-width: 190px;
+    width: 80%;
+    min-height: 700px; 
+}
+
+.user-edit-registration{
+    margin: auto;
+    background: #fff;
+    font-size: 10px;
+}
+
+.user-photos-container{
+    text-align: center;
+    display: flex;
+    
+}
+
+.user-photos-gallery{
+
+    display: flex;
+    min-width: 177px;
+    flex-direction: row;
+
+    @media (min-width: 800px) {
+        display: flex;
+    }
+}
