@@ -1,6 +1,6 @@
-<div class="leftpanel">
+<div class="user-panel">
     <% if @user.image.attached? %>
-    <div class="avatarbox"><%= image_tag @user.image.variant(resize: "150x150") %></div>
+    <div class="user-avatar"><%= image_tag @user.image.variant(resize: "150x150") %></div>
     <% else %>
     <div> No avatar </div>
     <% end %>
@@ -12,26 +12,24 @@
  
         <li class="list-group-item"><%= link_to 'Edit profil', edit_user_registration_path(@user) %></li>
       </ul>
-    
     </div>
-
+    <div class="user-actions" style="text-align: center;">
+    <%= link_to 'New Post', new_post_path, class: "btn btn-warning" %>  
+    </div>
 </div>
 
-<div class="mainpostpanel">
-<div class="newpostaction">
-  
-  <%= link_to 'New Post', new_post_path, class:"btn btn-warning", style: "float: right;" %></div>  
-      
-<% @posts.each do |post| %>
-        <div class="blog-card">
+<div class="users-main-panel">
+    <div class="newpostaction">
+        <% @posts.each do |post| %>
+          <div class="blog-card">
             <div class="meta">
-            <% if post.postimage.attached? %>
-              <div class="photo" style="background-image: url(<%= url_for(post.postimage) %>)">
-              </div>
-              <% else %>
-              <div class="photo" style="background-image: url()"></div>
-              <% end %>
-              <ul class="details">
+                <% if post.postimage.attached? %>
+                <div class="photo" style="background-image: url(<%= url_for(post.postimage) %>)">
+                </div>
+                <% else %>
+                <div class="photo" style="background-image: url()"></div>
+                <% end %>
+                <ul class="details">
                 <li class="author"><%= post.user.username %></li>
                 <li class="email"><%= post.user.email%></li>
                 <li class="date">Feb. 14, 2020</li>
@@ -73,22 +71,40 @@
             </div>
           </div>
         <% end %>
-        <div class="post_pagination">
-  <%== pagy_bootstrap_combo_nav_js(@pagyposts) %>
-  </div>
-        <div class="bottompanel">
-            <h1>Photo Gallery</h1>
-            <div class="photo_gallery">
-              <% @photos.each do |photo| %>
-                <div class="photo_container">
-                  <%= link_to image_tag(photo.image_url, class: "photo_user"), photo %>
-                  <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
-                </div>
-              <% end %>
-          </div>
           <div class="post_pagination">
-  <%== pagy_bootstrap_combo_nav_js(@pagyphotos) %>
-  </div>
+          <%== pagy_bootstrap_combo_nav_js(@pagyposts) %>
+          </div>
+ 
+        <div class="user-photos-panel">
+            <h1>My Gallery</h1>
+            <link  href="https://unpkg.com/nanogallery2@2.4.2/dist/css/nanogallery2.min.css" rel="stylesheet" type="text/css">
+            <script  type="text/javascript" src="https://unpkg.com/nanogallery2@2.4.2/dist/jquery.nanogallery2.min.js" ></script>
+            
+            <div id="ngy2p" data-nanogallery2= '{
+                          
+        "thumbnailWidth": "200",
+        "thumbnailDisplayTransition": "slideLeft",
+        "thumbnailDisplayTransitionDuration": 500,
+        "thumbnailDisplayInterval": 500,
+        "colorScheme": {
+          "thumbnail": {
+            "borderColor": "rgba(255,255,255,1)"
+          }
+        },
+        "thumbnailHoverEffect2": "imageScale150|imageSepiaOff|labelAppear75",
+        "galleryDisplayMode": "pagination",
+        "galleryMaxRows": 1,
+        "galleryPaginationMode": "dots",
+        "thumbnailAlignment": "center"
+                        }' >
+                  <!-- gallery content -->
+                  <% @photos.each do |photo| %>
+                  <a href = "<%= photo.image_url %>"   data-ngThumb = "<%= photo.image_url %>" > photo 1 </a>
+                  <% end %>
+                   
+              </div>
+                
+            
         </div>
         
   
@@ -96,4 +112,5 @@
           <p id="notice" class="notice"><%= notice %></p>
           <p class="alert"><%= alert %></p>
         </div>
+    </div>
   </div>

@@ -7,7 +7,7 @@ class PhotosController < ApplicationController
   # @page = params.fetch(:page,0).to_i
   # @photos = Photo.offset(@page * PHOTOS_PER_PAGE).limit(PHOTOS_PER_PAGE)
   def index
-    @pagyphotos, @photos = pagy(Photo.all.order("created_at DESC"), items: 5)
+    @photos = Photo.all.order("created_at DESC")
   end
 
   # GET /photos/1
@@ -46,7 +46,7 @@ class PhotosController < ApplicationController
     respond_to do |format|
       if @photo.update(photo_params)
         format.html { redirect_to @photo, notice: 'Photo was successfully updated.' }
-        format.json { render :show, status: :ok, location: @photo }
+        format.json { render :show, status: :created, location: @photo }
       else
         format.html { render :edit }
         format.json { render json: @photo.errors, status: :unprocessable_entity }

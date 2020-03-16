@@ -5,17 +5,36 @@
         <% else %>
         <%= link_to 'Log in to add picture', new_user_session_path, class:"btn btn-warning", style: "float: right;" %>
         <% end %>
-    </div> 
-        <div class="photo_gallery">
-              <% @photos.each do |photo| %>
-                <div class="photo_container">
-                  <%= link_to image_tag(photo.image_url, class: "photo_user"), photo %>
-                  <%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+
+    
+              <div id="ngy2p"
+                  /* gallery settings */
+                  data-nanogallery2 = '{
+                         "thumbnailWidth": "300",
+                        "thumbnailHeight": "auto",
+                         
+                        "thumbnailDisplayTransitionDuration": 1000,
+                        "thumbnailDisplayInterval": 1000,
+                        "colorScheme": {
+                          "thumbnail": {
+                            "background": "rgba(16,16,16,1)"
+                          }
+                        },
+                        "thumbnailDisplayTransition": "slideUp",
+                        "thumbnailDisplayTransitionDuration": 300,
+                        "thumbnailDisplayInterval": 150,
+                        "thumbnailHoverEffect2": "imageScaleIn80|imageSepiaOff|labelAppear75",
+                        "galleryDisplayMode": "pagination",
+                        "galleryMaxRows": 1,
+                        "galleryPaginationMode": "dots",
+                        "thumbnailAlignment": "center",
+                        "thumbnailGutterWidth": 1,
+                        "thumbnailGutterHeight": 1
+                      }' >
+                  <!-- gallery content -->
+                  <% @photos.each do |photo| %>
+                  <a href = "<%= photo.image_url %>"   data-ngThumb = "<%= photo.image_url %>" > photo 1 </a>
+                  <% end %>
                 </div>
-              <% end %>
-          </div>
-          <div class="post_pagination">
-  <%== pagy_bootstrap_combo_nav_js(@pagyphotos) %>
-  </div>
-    <%= link_to 'New Photo', new_photo_path %>
-</div>
+ </div>

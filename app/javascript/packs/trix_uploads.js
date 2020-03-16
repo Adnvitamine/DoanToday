@@ -1,3 +1,11 @@
+window.addEventListener("trix-file-accept", function(event) {
+  const acceptedTypes = ['image/jpeg', 'image/png']
+  if (!acceptedTypes.includes(event.file.type)) {
+    event.preventDefault()
+    alert("Only support attachment of jpeg or png files")
+  }
+})
+
 function uploadAttachment(attachment) {
     // Create our form data to submit
     var file = attachment.file;
@@ -23,7 +31,7 @@ function uploadAttachment(attachment) {
         var data = JSON.parse(xhr.responseText);
         return attachment.setAttributes({
           url: data.image_url,
-          href: data.url
+          href: data.image_url
         })
       }
     }

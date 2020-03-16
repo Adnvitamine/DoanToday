@@ -1,7 +1,7 @@
-<div class="leftpanel">
+<div class="user-panel">
     <% if user_signed_in? %>
         <% if current_user.image.attached? %>
-        <div class="avatarbox"><%= image_tag current_user.image.variant(resize: "150x150") %></div>
+        <div class="user-avatar"><%= image_tag current_user.image.variant(resize: "150x150") %></div>
         <% else %>
         <div> No avatar </div>
         <% end %>
@@ -18,37 +18,34 @@
 </div>
 
 
-<div class="mainpostpanel">   
+<div class="posts-main-panel">   
     
-    <div class="mainpostpanelarticle">
+    <div class="posts-panel">
       
-      <div class="articletitle">
+      <div class="post-title">
           <h1><%= @post.title %></h1>
-          <p><%= @post.secondtitle %></p>
-      </div>
-      
-      <div class="articleimage">
-          
       </div>
 
-      <div class="articlecontent">
-          <% if @post.postimage.attached? %>
-          <%= image_tag @post.postimage.variant(resize: "150x150"), class: "avatar" %>
+      <div class="post-subtitle">    
+          <p><%= @post.secondtitle %></p>
+      </div>
+
+      <div class="post-content">
+      <% if @post.postimage.attached? %>
+          <%= image_tag @post.postimage.variant(resize: "350x350"), class: "post-user-avatar" %>
           <% end %>
           <p>
             <%= @post.content %>
           </p>
       </div>
 
-      <div class="articleinfo">
-      <p></p>
+      <div class="post-info">
       <p><%= image_tag @post.user.image.variant(resize: "50x50") %><br><strong>written by:</strong><%= @post.user.username %>
       </p>
-      <p></p>
       <p><strong>Email:</strong><%= @post.user.email %></p>
       </div>
-      
-      <div class="articleactions">
+
+      <div class="post-actions">
         
           <% if user_signed_in? %>
             
@@ -72,7 +69,7 @@
     
     </div>
 
-    <div class="mainpostpanelcomments">
+    <div class="post-comments-panel">
       <h2><strong><%= @post.comments.count %> 
                       <% if @post.comments.count > 1 %>
                           Comments
@@ -82,7 +79,7 @@
           </strong></h2>
 
         <% @comments.each do |comment| %>
-          <div class="allcomment">
+          <div class="posts-show-comments">
           <%= image_tag comment.user.image.variant(resize: "50x50") %>
             <p> <strong><%= comment.name %></strong><br><%= comment.body %></p>
             <% if user_signed_in? %>
@@ -93,7 +90,7 @@
             <% end %>
           </div>
         <% end %>
-        <div class="newcomment">
+        <div class="post-comment">
         <% if user_signed_in? %>
         <%= render partial: 'comments/form', locals: { comment: @comment } %>
         <% else %>

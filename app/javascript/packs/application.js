@@ -4,15 +4,21 @@
 // that code so it'll be compiled.
 
 require("@rails/ujs").start()
-require("turbolinks").start()
+require('jquery')
 require("@rails/activestorage").start()
 require("channels")
 require("packs/trix_uploads")
+
+
 import "bootstrap";
 import "../stylesheets/application";
 import "../stylesheets/navigation";
 import "../stylesheets/posts";
+import "../stylesheets/users";
+import "../stylesheets/photos";
+import "../stylesheets/form";
 import "../stylesheets/trix";
+
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -24,3 +30,4 @@ import "../stylesheets/trix";
 
 require("trix")
 require("@rails/actiontext")
+import "controllers"
